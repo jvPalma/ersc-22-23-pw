@@ -15,6 +15,63 @@ const extrairNumerosAleatorios = (tamanho, min, max) => {
   return numerosGerados;
 };
 
+const addToTable = (chaveParaAdicionar) => {
+  console.log(chaveParaAdicionar);
+  //1º passo -> get table TBody
+  //   const tableBody = tabela.getElementsByTagName("tbody")[0];
+  const tableBody = tabela.tBodies[0];
+
+  //2º passo -> create elements HTML (1x TR, 3x TD)
+  const novaLinha = document.createElement("tr");
+  const novaColuna1 = document.createElement("td");
+  const novaColuna2 = document.createElement("td");
+  const novaColuna3 = document.createElement("td");
+
+  //3º passo -> add chave content to TD's
+  const coluna1Content = document.createTextNode(
+    chaveParaAdicionar.numeros.join(" - ")
+  );
+  novaColuna1.appendChild(coluna1Content);
+
+  novaColuna2.innerText = chaveParaAdicionar.estrelas.join(" * ");
+  //   novaColuna1.textContent = "coluna 1";
+
+  const ordenaNumeros = (numeros) => {
+    // res : -1 a  < b -> o A passa para o proximo index
+    // res :  1 a  > b -> o B passa para o index anterior
+    // res :  0 a == b - ficam como está
+    return [...numeros].sort((a, b) => a - b);
+  };
+
+  const numerosOrdenados = ordenaNumeros(chaveParaAdicionar.numeros).join(
+    " - "
+  );
+  const estrelasOrdenados = ordenaNumeros(chaveParaAdicionar.estrelas).join(
+    " * "
+  );
+
+  novaColuna3.innerHTML =
+    "<span style='color: red'>" +
+    numerosOrdenados +
+    " --- " +
+    estrelasOrdenados +
+    "</span>";
+
+  //4ª passo -> add TD into TR | addd TR into TBody
+  // add colunas -> linha
+  novaLinha.appendChild(novaColuna1);
+  novaLinha.appendChild(novaColuna2);
+  novaLinha.appendChild(novaColuna3);
+
+  // add linha -> tbody
+  tableBody.appendChild(novaLinha);
+};
+
+const popularTabela = () => {
+  //limpar o body da tabela
+  // percorrer a lista de chaves, e adicionar cada uma delas ao body
+};
+
 const gerarChave = () => {
   const chave = {
     numeros: [], // [1, 2, 3, 4, 5]// tem de ter 5 numeros
@@ -22,5 +79,6 @@ const gerarChave = () => {
   };
   chave.numeros = extrairNumerosAleatorios(5, 1, 50);
   chave.estrelas = extrairNumerosAleatorios(2, 1, 12);
-  console.log(chave);
+  listaChaves.push(chave);
+  popularTabela();
 };
