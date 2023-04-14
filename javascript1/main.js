@@ -15,45 +15,6 @@ const extrairNumerosAleatorios = (tamanho, min, max) => {
   return numerosGerados;
 };
 
-const ordenaNumeros = (numeros) => {
-  // res : -1 a  < b -> o A passa para o proximo index
-  // res :  1 a  > b -> o B passa para o index anterior
-  // res :  0 a == b - ficam como está
-  return numeros.sort((a, b) => a - b);
-};
-
-const addToTable = (chave) => {
-  const tableBody = tabela.tBodies[0];
-  // criar um novo elemento, que é a linha para a tabela
-  const novaLinha = document.createElement("tr");
-  const novaColuna1 = document.createElement("td");
-  const novaColuna2 = document.createElement("td");
-  const novaColuna3 = document.createElement("td");
-
-  // add columns content
-  const coluna1Content = document.createTextNode(chave.numeros.join(" - "));
-  novaColuna1.appendChild(coluna1Content);
-
-  novaColuna2.innerText = chave.estrelas.join(" * ");
-
-  const numerosOrdenados = ordenaNumeros(chave.numeros);
-  const estrelasOrdenados = ordenaNumeros(chave.estrelas);
-
-  novaColuna3.innerHTML =
-    "<span style='color: red'>" +
-    numerosOrdenados.join(" - ") +
-    " --- " +
-    estrelasOrdenados.join(" - ") +
-    "</span>";
-
-  // add colunas -> linha
-  novaLinha.appendChild(novaColuna1);
-  novaLinha.appendChild(novaColuna2);
-  novaLinha.appendChild(novaColuna3);
-
-  // add linha -> tbody
-  tableBody.appendChild(novaLinha);
-};
 const gerarChave = () => {
   const chave = {
     numeros: [], // [1, 2, 3, 4, 5]// tem de ter 5 numeros
@@ -61,5 +22,5 @@ const gerarChave = () => {
   };
   chave.numeros = extrairNumerosAleatorios(5, 1, 50);
   chave.estrelas = extrairNumerosAleatorios(2, 1, 12);
-  addToTable(chave);
+  console.log(chave);
 };
