@@ -9,6 +9,7 @@
   </head>
   <body>
     <div id="content">
+      <input id="mySearch" />
       <table id="myTable" class="aula">
         <thead>
           <tr>
@@ -33,8 +34,10 @@
       const buttonAdicionar = document.getElementById("addKey");
       const buttonClear = document.getElementById("clearAll");
       const tabela = document.getElementById("myTable");
+      const mySearch = document.getElementById("mySearch");
 
       buttonAdicionar.onclick = gerarChave;
+      mySearch.onchange = handleSearch;
 
       // isto aqui é JS
       const var1 = 1; // number
