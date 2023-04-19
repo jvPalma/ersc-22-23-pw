@@ -82,28 +82,34 @@ const addToTable = (chaveParaAdicionar, index) => {
 const popularTabela = (numberSearched) => {
   // limpar o body da tabela
   const tableBody = tabela.tBodies[0];
+  const numeroLinhas = document.getElementById("numeroLinhas");
+
   tableBody.innerHTML = "";
+
   if (numberSearched && numberSearched.length > 0) {
     //filter and populate table
-    listaChaves
-      .filter((item) => {
-        console.log([...item.numeros, ...item.estrelas]);
-        if (
-          [...item.numeros, ...item.estrelas].includes(Number(numberSearched))
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .forEach((value, banana) => {
-        addToTable(value, banana);
-      });
+    const listAuxiliar = listaChaves.filter((item) => {
+      if (
+        [...item.numeros, ...item.estrelas].includes(Number(numberSearched))
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    listAuxiliar.forEach((value, banana) => {
+      addToTable(value, banana);
+    });
+
+    numeroLinhas.innerHTML =
+      listAuxiliar.length + "/" + listaChaves.length + " linhas de chaves";
   } else {
     // percorrer a lista de chaves, e adicionar cada uma delas ao body
     listaChaves.forEach((value, banana) => {
       addToTable(value, banana);
     });
+    numeroLinhas.innerHTML =
+      listaChaves.length + "/" + listaChaves.length + " linhas de chaves";
   }
 };
 // jvPalma -> ersc-22-23-pw
