@@ -62,7 +62,8 @@ const addToTable = (chaveParaAdicionar, index) => {
   actionButton.innerHTML = "Delete";
   // add onclick to button
   actionButton.onclick = () => {
-    console.log(index, chaveParaAdicionar);
+    listaChaves.splice(index, 1);
+    popularTabela();
   };
 
   // add button to column 4
@@ -82,8 +83,6 @@ const addToTable = (chaveParaAdicionar, index) => {
 const popularTabela = (numberSearched) => {
   // limpar o body da tabela
   const tableBody = tabela.tBodies[0];
-  const numeroLinhas = document.getElementById("numeroLinhas");
-
   tableBody.innerHTML = "";
 
   if (numberSearched && numberSearched.length > 0) {
@@ -104,6 +103,9 @@ const popularTabela = (numberSearched) => {
     numeroLinhas.innerHTML =
       listAuxiliar.length + "/" + listaChaves.length + " linhas de chaves";
   } else {
+    // limpar o input de pesquisa
+    mySearch.value = "";
+
     // percorrer a lista de chaves, e adicionar cada uma delas ao body
     listaChaves.forEach((value, banana) => {
       addToTable(value, banana);

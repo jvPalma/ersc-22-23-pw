@@ -31,12 +31,27 @@
     <!-- Importar ficheiro JS externo -->
     <script src="./main.js"></script>
     <script>
-      const listaChaves = [];
+      let listaChaves = [];
       const buttonAdicionar = document.getElementById("addKey");
       const buttonClear = document.getElementById("clearAll");
       const tabela = document.getElementById("myTable");
       const mySearch = document.getElementById("mySearch");
+      const numeroLinhas = document.getElementById("numeroLinhas");
 
+      buttonClear.onclick = () => {
+        // limpar o body
+        const tableBody = tabela.tBodies[0];
+        tableBody.innerHTML = "";
+
+        // limpar o counter de linhas
+        numeroLinhas.innerHTML = "";
+
+        // limpar a lista de chaves
+        listaChaves = [];
+
+        // limpar o input de pesquisa
+        mySearch.value = "";
+      };
       buttonAdicionar.onclick = gerarChave;
       mySearch.onchange = handleSearch;
 
