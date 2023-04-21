@@ -21,6 +21,7 @@
         </thead>
         <tbody></tbody>
       </table>
+      <p id="numeroLinhas"></p>
     </div>
     <!-- Actions para adicionar linhas e limpar a tabela -->
     <div style="text-align: center">
@@ -30,12 +31,26 @@
     <!-- Importar ficheiro JS externo -->
     <script src="./main.js"></script>
     <script>
-      const listaChaves = [];
+      let listaChaves = [];
       const buttonAdicionar = document.getElementById("addKey");
       const buttonClear = document.getElementById("clearAll");
       const tabela = document.getElementById("myTable");
       const mySearch = document.getElementById("mySearch");
+      const numeroLinhas = document.getElementById("numeroLinhas");
 
+      buttonClear.onclick = () => {
+        // limpar o body da tabela
+        const tableBody = tabela.tBodies[0];
+        tableBody.innerHTML = "";
+
+        numeroLinhas.innerHTML = "";
+
+        // limpar o input de pesquisa
+        mySearch.value = "";
+
+        // limpar a lista de chaves
+        listaChaves = [];
+      };
       buttonAdicionar.onclick = gerarChave;
       mySearch.onchange = handleSearch;
 

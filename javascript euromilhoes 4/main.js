@@ -62,7 +62,8 @@ const addToTable = (chaveParaAdicionar, index) => {
   actionButton.innerHTML = "Delete";
   // add onclick to button
   actionButton.onclick = () => {
-    console.log(index, chaveParaAdicionar);
+    listaChaves.splice(index, 1);
+    popularTabela();
   };
 
   // add button to column 4
@@ -85,25 +86,33 @@ const popularTabela = (numberSearched) => {
   tableBody.innerHTML = "";
   if (numberSearched && numberSearched.length > 0) {
     //filter and populate table
-    listaChaves
-      .filter((item) => {
-        console.log([...item.numeros, ...item.estrelas]);
-        if (
-          [...item.numeros, ...item.estrelas].includes(Number(numberSearched))
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .forEach((value, banana) => {
-        addToTable(value, banana);
-      });
+    const listaFiltrada = listaChaves.filter((item) => {
+      if (
+        [...item.numeros, ...item.estrelas].includes(Number(numberSearched))
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    listaFiltrada.forEach((value, banana) => {
+      addToTable(value, banana);
+    });
+
+    numeroLinhas.innerHTML =
+      listaFiltrada.length + "/" + listaChaves.length + " linhas de chaves";
   } else {
     // percorrer a lista de chaves, e adicionar cada uma delas ao body
     listaChaves.forEach((value, banana) => {
       addToTable(value, banana);
     });
+
+    // limpar o input de pesquisa
+    mySearch.value = "";
+
+    numeroLinhas.innerHTML =
+      listaChaves.length + "/" + listaChaves.length + " linhas de chaves";
   }
 };
 // jvPalma -> ersc-22-23-pw
