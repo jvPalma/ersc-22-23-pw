@@ -5,8 +5,6 @@ Criar e instanciar um projeto node
 ```bash
 npm init
 
-
-
 name: node-api-fundamentals
 version: (1.0.0)
 description: Node.js Rest API c/ Express.
