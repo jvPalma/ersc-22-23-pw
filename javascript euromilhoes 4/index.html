@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>JavaScript</title>
+  </head>
+  <body>
+    <div id="content">
+      <input id="mySearch" />
+      <table id="myTable" class="aula">
+        <thead>
+          <tr>
+            <th>Numeros</th>
+            <th>Estrelas</th>
+            <th>Chave Ord</th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <!-- Actions para adicionar linhas e limpar a tabela -->
+    <div style="text-align: center">
+      <button id="clearAll">limpar Chaves</button>
+      <button id="addKey">Gerar Chave</button>
+    </div>
+    <!-- Importar ficheiro JS externo -->
+    <script src="./main.js"></script>
+    <script>
+      const listaChaves = [];
+      const buttonAdicionar = document.getElementById("addKey");
+      const buttonClear = document.getElementById("clearAll");
+      const tabela = document.getElementById("myTable");
+      const mySearch = document.getElementById("mySearch");
+
+      buttonAdicionar.onclick = gerarChave;
+      mySearch.onchange = handleSearch;
+
+      // isto aqui é JS
+      const var1 = 1; // number
+      const var2 = "string"; // strings
+      const var3 = true; // boolean
+      const var4 = null; // null -> ocupa espaço na memoria
+      const var5 = undefined; // undefined -> nao ocupa espaço na memoria
+      const var6 = { a: 1, b: "" }; // object
+      const var7 = [1, 2, 3]; // array
+      const var8_1 = function () {}; // normal JS function
+      const var8_2 = () => {}; // ES6 -> arrow fucntioon
+    </script>
+  </body>
+</html>
