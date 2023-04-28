@@ -1,6 +1,6 @@
 {
   "nome": "João Palma",
-  "data_nascimento": "01/08/1995",
+  "data_nascimento": "1995-08-01",
   "localidade": "Viana do Castelo",
   "hab_academicas": [
     {
@@ -38,6 +38,12 @@
       "data_fim": null,
       "posicao": "Head of Software Development Team",
       "empresa": "NearSea Tecnologies"
+    },
+    {
+      "data_inicio": "2021-02-01",
+      "data_fim": null,
+      "posicao": "Prof convidado",
+      "empresa": "IPVC"
     }
   ],
   "projetos": []

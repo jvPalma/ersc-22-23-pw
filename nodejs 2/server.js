@@ -7,7 +7,7 @@ import Router from 'express';
 import 'dotenv/config';
 
 //--REST SERVER--//
-const app = express();
+const server = express();
 
 // client can be postman | react website | react localhost link | etc
 const clientURL = 'http://localhost:5500';
@@ -16,38 +16,84 @@ const clientURL = 'http://localhost:5500';
 const corsOptions = {
   origin: clientURL,
 };
-app.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 // output dados de pedido HTTP - logger
-app.use(morgan('short'));
+server.use(morgan('short'));
 
 // parse dados dos pedidos no content-type - application/json
-app.use(express.json());
+server.use(express.json());
 
 //TODO: ROUTES VÃO SER COLOCADOS AQUI!
 //--ROUTES--//
-const router = Router();
+const api = Router();
 
 const datajson = fs.readFileSync('data.json', 'utf-8'); // Read string-json from file
 const data = JSON.parse(datajson); // Parse to JSON
 
 // GET all data method route
-router.get('/', (req, res) => {
-  console.log(data.nome);
+// http://localhost:4242/
+api.get('/', (req, res) => {
   res.send(data);
 });
 
-app.use(router);
+// http://localhost:4242/name
+api.get('/name', (req, res) => {
+  res.send(data.nome);
+});
+// http://localhost:4242/name
+api.get('/name', (req, res) => {
+  res.send(data.nome);
+});
 
-// TODO: endpoint to get:
-//		- person name
-//		- person professional experience list
-//		- person current age
-//		- person current academic level
-//		- person current job
+// http://localhost:4242/name
+api.get('/prof-exp', (req, res) => {
+  res.send(data.hab_profissionais);
+});
+
+// http://localhost:4242/age
+api.get('/age', (req, res) => {
+  const data1 = new Date(data.data_nascimento);
+  const data2 = new Date();
+
+  const diff = data2.getTime() - data1.getTime();
+
+  function convertmili(mSeconds) {
+    var checkYear = Math.floor(mSeconds / 31536000000);
+    return checkYear;
+  }
+  res.json({ currentAge: convertmili(diff) });
+});
+
+// http://localhost:4242/academic-level
+api.get('/academic-level', (req, res) => {
+  res.send(
+    data.hab_academicas
+      .sort((a, b) => {
+        const keyA = new Date(a.data_fim);
+        const keyB = new Date(b.data_fim);
+        // Compare the 2 dates
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+      })
+      .filter((habilitacoes) => habilitacoes.data_fim !== null)[0]
+  );
+});
+
+// http://localhost:4242/current-job
+api.get('/current-job', (req, res) => {
+  res.send(
+    data.hab_profissionais.filter(
+      (habilitacoes) => habilitacoes.data_fim === null
+    )
+  );
+});
+
+server.use(api);
 
 // correr server no url host:port definido em .env
-app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
+server.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
   console.log(
     'Server up and running at http://%s:%s',
     process.env.SERVER_HOST,
