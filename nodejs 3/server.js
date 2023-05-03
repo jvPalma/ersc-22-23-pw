@@ -41,10 +41,6 @@ api.get('/', (req, res) => {
 api.get('/name', (req, res) => {
   res.send(data.nome);
 });
-// http://localhost:4242/name
-api.get('/name', (req, res) => {
-  res.send(data.nome);
-});
 
 // http://localhost:4242/name
 api.get('/prof-exp', (req, res) => {
@@ -88,6 +84,27 @@ api.get('/current-job', (req, res) => {
       (habilitacoes) => habilitacoes.data_fim === null
     )
   );
+});
+
+// http://localhost:4242/get-simple
+api.get('/get-simple', (req, res) => {
+  res.send('get-simple');
+});
+
+// http://localhost:4242/get-params/qualquerCoisa
+api.get('/get-params/:chocolat', (req, res) => {
+  res.send('get-params ' + req.params.chocolat);
+});
+
+// http://localhost:4242/get-query-params ? key = value & key2 = value2
+api.get('/get-query-params', (req, res) => {
+  //   res.send('get-query-params ' + JSON.stringify(req.query));
+  res.send('get-query-params ' + req.query.test1);
+});
+
+// http://localhost:4242/post-simple
+api.post('/post-simple', (req, res) => {
+  res.send('post-simple');
 });
 
 server.use(api);

@@ -41,10 +41,6 @@ api.get('/', (req, res) => {
 api.get('/name', (req, res) => {
   res.send(data.nome);
 });
-// http://localhost:4242/name
-api.get('/name', (req, res) => {
-  res.send(data.nome);
-});
 
 // http://localhost:4242/name
 api.get('/prof-exp', (req, res) => {
