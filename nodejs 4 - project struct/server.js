@@ -6,6 +6,9 @@ import fs from 'fs';
 import Router from 'express';
 import 'dotenv/config';
 
+// SERVER ROUTES
+import { todoRoutes } from './routes/index.js';
+
 //--REST SERVER--//
 const server = express();
 
@@ -32,22 +35,22 @@ const datajson = fs.readFileSync('data.json', 'utf-8'); // Read string-json from
 const data = JSON.parse(datajson); // Parse to JSON
 
 // GET all data method route
-// http://localhost:4242/
+// http://localhost:4242/api/
 api.get('/', (req, res) => {
   res.send(data);
 });
 
-// http://localhost:4242/name
+// http://localhost:4242/api/name
 api.get('/name', (req, res) => {
   res.send(data.nome);
 });
 
-// http://localhost:4242/name
+// http://localhost:4242/api/prof-exp
 api.get('/prof-exp', (req, res) => {
   res.send(data.hab_profissionais);
 });
 
-// http://localhost:4242/age
+// http://localhost:4242/api/age
 api.get('/age', (req, res) => {
   const data1 = new Date(data.data_nascimento);
   const data2 = new Date();
@@ -61,7 +64,7 @@ api.get('/age', (req, res) => {
   res.json({ currentAge: convertmili(diff) });
 });
 
-// http://localhost:4242/academic-level
+// http://localhost:4242/api/academic-level
 api.get('/academic-level', (req, res) => {
   res.send(
     data.hab_academicas
@@ -77,7 +80,7 @@ api.get('/academic-level', (req, res) => {
   );
 });
 
-// http://localhost:4242/current-job
+// http://localhost:4242/api/current-job
 api.get('/current-job', (req, res) => {
   res.send(
     data.hab_profissionais.filter(
@@ -86,28 +89,56 @@ api.get('/current-job', (req, res) => {
   );
 });
 
-// http://localhost:4242/get-simple
+// http://localhost:4242/api/get-simple
 api.get('/get-simple', (req, res) => {
   res.send('get-simple');
 });
 
-// http://localhost:4242/get-params/qualquerCoisa
+// http://localhost:4242/api/get-params/qualquerCoisa
 api.get('/get-params/:chocolat', (req, res) => {
   res.send('get-params ' + req.params.chocolat);
 });
 
-// http://localhost:4242/get-query-params ? key = value & key2 = value2
+// http://localhost:4242/api/get-query-params ? key = value & key2 = value2
 api.get('/get-query-params', (req, res) => {
   //   res.send('get-query-params ' + JSON.stringify(req.query));
   res.send('get-query-params ' + req.query.test1);
 });
 
-// http://localhost:4242/post-simple
+// http://localhost:4242/api/post-simple
 api.post('/post-simple', (req, res) => {
   res.send('post-simple');
 });
 
-server.use(api);
+// CREATE DATABASE pw;
+// CREATE USER 'pw'@'%' IDENTIFIED BY 'pw';
+// GRANT ALL PRIVILEGES ON *.* TO 'pw'@'%' WITH GRANT OPTION;
+// FLUSH PRIVILEGES;
+
+// const userRoutes = Router();
+// userRoutes.get('/get-simple', (req, res) => {
+//   res.send('v1 get-simple');
+// });
+
+// const studentRoutes = Router();
+// studentRoutes.get('/get-simple', (req, res) => {
+//   res.send('v2 get-simple');
+// });
+
+// npm i --save sequelize
+
+// server.use('/api/user', userRoutes);
+// server.use('/api/studentRoutes', studentRoutes);
+// api.use('/user', userRoutes);
+// api.use('/student', studentRoutes);
+
+// api.use('/user', todoRoutes);
+api.use('/todo', todoRoutes);
+// api.use('/student', todoRoutes);
+
+server.use('/api', api);
+
+// http://localhost:4242/api/user/get-simple
 
 // correr server no url host:port definido em .env
 server.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
