@@ -1,6 +1,6 @@
 import fs from 'fs';
 import Router from 'express';
-import { todoRoutes } from '../controllers/todo.js';
+import { todoRoutes } from './todo.js';
 
 //TODO: ROUTES VÃO SER COLOCADOS AQUI!
 //--ROUTES--//
@@ -107,6 +107,8 @@ api.post('/post-simple', (req, res) => {
 // api.use('/user', userRoutes);
 // api.use('/student', studentRoutes);
 
+// routes do todo vai ser algo como
+// http://...... /todo ....
 api.use('/todo', todoRoutes);
 
 export { api };
