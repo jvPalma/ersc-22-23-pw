@@ -13,7 +13,7 @@ const todoRoutes = Router();
 
 // http://localhost:4242/api/todo/getAll
 todoRoutes.get('/getAll', authRequired, getAllTodos);
-todoRoutes.get('/getById/:idGet', authRequired, getById);
+todoRoutes.get('/getById/:idGet', getById);
 todoRoutes.post('/create', authRequired, create);
 todoRoutes.put('/update/:idUpdate', update);
 todoRoutes.delete('/delete/:idDelete', deleteTodo);

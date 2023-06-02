@@ -10,12 +10,12 @@
       <div id="loginResult"></div>
       <div id="loginForm">
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="username">username:</label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
+            type="username"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
             required
           />
         </div>
@@ -31,8 +31,10 @@
         </div>
         <div class="form-group">
           <button type="button" onclick="login()">Login</button>
+          <button type="button" onclick="getTodo()">Get Todo</button>
         </div>
       </div>
+      <div id="todoResult"></div>
     </div>
 
     <div class="container">
@@ -66,24 +68,51 @@
     </div>
 
     <script>
+      const getTodo = () => {
+        const url = 'http://localhost:4242/api/todo/getAll';
+
+        const token = localStorage.getItem('token-iusabndkjanbksd');
+
+        fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            document.getElementById('todoResult').innerHTML =
+              JSON.stringify(data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      };
+
       function login() {
-        const email = document.getElementById('email').value;
+        const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
         // Replace with your login endpoint URL
-        const url = 'http://localhost:4242/api/users/login';
+        const url = 'http://localhost:4242/api/user/login';
+
+        const requestBody = { username, password };
 
         fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify(requestBody),
         })
           .then((response) => response.json())
           .then((data) => {
+            localStorage.setItem('token-iusabndkjanbksd', data.token);
+
             // Handle login response
-            document.getElementById('loginResult').innerHTML = data.message;
+            document.getElementById('loginResult').innerHTML =
+              JSON.stringify(data);
           })
           .catch((error) => {
             console.error('Error:', error);
