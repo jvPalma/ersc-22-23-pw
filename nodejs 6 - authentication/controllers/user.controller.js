@@ -17,6 +17,7 @@ export const login = async (req, res) => {
     username: user.username,
     batatas: 2,
   }); // este payload, é o que futuramente vai estar dentro do req.user
+
   return res.json({
     token,
   });

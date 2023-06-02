@@ -40,22 +40,12 @@
       <div id="signupResult"></div>
       <div id="signupForm">
         <div class="form-group">
-          <label for="name">Name:</label>
+          <label for="username">username:</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            placeholder="Enter your name"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input
-            type="email"
-            id="signupEmail"
-            name="email"
-            placeholder="Enter your email"
+            id="signupUsername"
+            name="username"
+            placeholder="Enter your username"
             required
           />
         </div>
@@ -81,7 +71,7 @@
         const password = document.getElementById('password').value;
 
         // Replace with your login endpoint URL
-        const url = '/login';
+        const url = 'http://localhost:4242/api/users/login';
 
         fetch(url, {
           method: 'POST',
@@ -101,24 +91,27 @@
       }
 
       function signup() {
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('signupEmail').value;
+        const username = document.getElementById('signupUsername').value;
         const password = document.getElementById('signupPassword').value;
 
         // Replace with your signup endpoint URL
-        const url = '/signup';
+        const url = 'http://localhost:4242/api/user/register';
+
+        const requestBody = { username, password };
 
         fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify(requestBody),
         })
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
             // Handle signup response
-            document.getElementById('signupResult').innerHTML = data.message;
+            document.getElementById('signupResult').innerHTML =
+              JSON.stringify(data);
           })
           .catch((error) => {
             console.error('Error:', error);

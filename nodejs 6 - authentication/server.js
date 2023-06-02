@@ -12,7 +12,7 @@ import { database } from './config/context/database.js';
 const server = express();
 
 // client can be postman | react website | react localhost link | etc
-const clientURL = 'http://localhost:5500';
+const clientURL = '*';
 
 // CORS options
 const corsOptions = {
